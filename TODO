@@ -1,0 +1,7 @@
+- replace calls to pinv with pinv(..., 0) so aren't regularizing Nystrom extensions unintentionally;
+ v1 of the paper on the arXiv is using default pinv, which has tolerance max(size(A))*norm(A)*eps
+- modularize the visualization code better (the code is very repetitive, and tedious to edit)
+- isolate and name the individual experiments (since it takes so long to run in groups, want to be able to run individually)
+
+
+
