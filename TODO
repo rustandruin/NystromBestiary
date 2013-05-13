@@ -1,3 +1,4 @@
+- consistently rename stuff: the extension m-files should all end in _sketch, randEig and randEig2 should be replaced with _pinched and _prolonged (also inside of data set generation and visualization codes)
 - replace calls to pinv with pinv(..., 0) so aren't regularizing Nystrom extensions unintentionally;
  v1 of the paper on the arXiv is using default pinv, which has tolerance max(size(A))*norm(A)*eps
 - modularize the visualization code better (the code is very repetitive, and tedious to edit)

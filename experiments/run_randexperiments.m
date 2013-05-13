@@ -9,7 +9,7 @@ allmethods = {'simple', 'srft', 'gaussian', 'levscore', 'froblev', ...
     'eignys_srft', 'eignys_gaussian', 'eignys_levscore', ...
     'eignys_froblev', 'eignys_speclev', 'eignys_approxlev'};
 % specify the directory to output the results into
-datadirname = 'densified';
+datadirname = 'outputs';
 
 q = 15; %6 % number of experiments to run
 numpts = 12; %12 % number of different column samples to take
