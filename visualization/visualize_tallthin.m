@@ -1,9 +1,11 @@
-function visualize_tallthin(datasetfname1, datasetfname2, printflag, outdir)
-% visualize(datasetfname1, datasetfname2, printflag, outdir)
+function visualize_tallthin(datasetfname1, datasetfname2, printflag, ...
+                            colorflag, outdir)
+% visualize(datasetfname1, datasetfname2, printflag, colorflag, outdir)
 %
 % Visualizes the information on Nystrom approximation stored in the files
 % datasetfname1 and datasetfname2. If printflag is true, saves the generated graphs to pdfs
-% with appropriate names. If outdir is present and printflag is true, the 
+% with appropriate names. If colorflag is true, use colors, otherwise use
+% grayscale. If outdir is present and printflag is true, the 
 % pdfs are saved to this directory.
 %
 % datasetfname1 is assumed to contain the information on all inexact
@@ -193,20 +195,37 @@ end
 % display the uniform and QR leverage sampling errors for calibration
 lw = 1.5;
 ms = 10;
-simple_style = 's-';
-simple_color = [.1 .1 .1];
-froblev_style = 'o-';
-froblev_color = [.2 .2 .2];
-approxlev_style = 'v-';
-approxlev_color = [.3 .3 .3];
-qrlevscore_style = 'd-';
-qrlevscore_color = [.4 .4 .4];
-speclev_style = '^-';
-speclev_color = [.5 .5 .5];
-tallthin_style = 'x-';
-tallthin_color = [.6 .6 .6];
-srft_style = '+-'; 
-srft_color = [.7 .7 .7];
+if colorflag
+    qrlevscore_style = 'rd-';
+    qrlevscore_color = 'r';
+    simple_style = 'ks-';
+    simple_color = 'k';
+    approxlev_style = 'g*-';
+    approxlev_color = 'g';
+    froblev_style = 'bo-';
+    froblev_color = 'b';
+    speclev_style = 'm^-';
+    speclev_color = 'm';
+    tallthin_style = 'cx-';
+    tallthin_color = 'c';
+    srft_style = '+-';
+    srft_color = [.54 .39 .03]; % "darkgoldenrod4" from R
+else
+    simple_style = 's-';
+    simple_color = [.1 .1 .1];
+    froblev_style = 'o-';
+    froblev_color = [.2 .2 .2];
+    approxlev_style = 'v-';
+    approxlev_color = [.3 .3 .3];
+    qrlevscore_style = 'd-';
+    qrlevscore_color = [.4 .4 .4];
+    speclev_style = '^-';
+    speclev_color = [.5 .5 .5];
+    tallthin_style = 'x-';
+    tallthin_color = [.6 .6 .6];
+    srft_style = '+-';
+    srft_color = [.7 .7 .7];
+end
 
 legendloc = 'Northeast';
 

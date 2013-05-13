@@ -1,9 +1,10 @@
-function visualize(datasetfname, printflag, outdir)
-% visualize(datasetfname, printflag, outdir)
+function visualize(datasetfname, printflag, colorflag, outdir)
+% visualize(datasetfname, printflag, colorflag, outdir)
 %
 % Visualizes the information on Nystrom approximation stored in the file
 % datasetfname. If printflag is true, saves the generated graphs to pdfs
-% with appropriate names. If outdir is present and printflag is true, the 
+% with appropriate names. If colorflag is true, uses colors, otherwise
+% uses grayscale. If outdir is present and printflag is true, the 
 % pdfs are saved to this directory.
 %
 % Graphs generated:
@@ -43,7 +44,6 @@ if printflag
     timingheight = 6.2;
     printtiming = @(figname) printcf([basename figname '.pdf'], fontsize, timingwidth, timingheight);
 end
-
 
 %% calculate the mean errors and timings
 
@@ -172,14 +172,25 @@ end
 %% Plot the errors of the fixed and nonfixed rank exact methods
 lw = 1.5;
 ms = 10;
-simple_style = 's-';
-simple_color = [.1 .1 .1];
-srft_style = 'o-';
-srft_color = [.2 .2 .2];
-gaussian_style = 'v-';
-gaussian_color = [.3 .3 .3];
-levscore_style = 'd-';
-levscore_color = [.4 .4 .4];
+if colorflag
+    simple_style = 'ks-';
+    simple_color = 'k';
+    srft_style = 'bo-';
+    srft_color = 'b';
+    gaussian_style = 'g*-';
+    gaussian_color = 'g';
+    levscore_style = 'rd-';
+    levscore_color = 'r';
+else
+    simple_style = 's-';
+    simple_color = [.1 .1 .1];
+    srft_style = 'o-';
+    srft_color = [.2 .2 .2];
+    gaussian_style = 'v-';
+    gaussian_color = [.3 .3 .3];
+    levscore_style = 'd-';
+    levscore_color = [.4 .4 .4];
+end
 legendloc = 'Northeast';
 
 exactbase_struct = struct(...
@@ -340,16 +351,29 @@ end
 % display the uniform and leverage sampling errors for calibration
 lw = 1.5;
 ms = 10;
-simple_style = 's-';
-simple_color = [.1 .1 .1];
-froblev_style = 'o-';
-froblev_color = [.2 .2 .2];
-approxlev_style = 'v-';
-approxlev_color = [.3 .3 .3];
-levscore_style = 'd-';
-levscore_color = [.4 .4 .4];
-speclev_style = '^-';
-speclev_color = [.5 .5 .5];
+if colorflag
+    simple_style = 'ks-';
+    simple_color = 'k';
+    froblev_style = 'bo-';
+    froblev_color = 'b';
+    levscore_style = 'rd-';
+    levscore_color = 'r';
+    approxlev_style = 'g*-';
+    approxlev_color = 'g';
+    speclev_style = 'm^-';
+    speclev_color = 'm';
+else
+    simple_style = 's-';
+    simple_color = [.1 .1 .1];
+    froblev_style = 'o-';
+    froblev_color = [.2 .2 .2];
+    approxlev_style = 'v-';
+    approxlev_color = [.3 .3 .3];
+    levscore_style = 'd-';
+    levscore_color = [.4 .4 .4];
+    speclev_style = '^-';
+    speclev_color = [.5 .5 .5];
+end
 legendloc = 'Northeast';
 
 inexactbase_struct = struct(...

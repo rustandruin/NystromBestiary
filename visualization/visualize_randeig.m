@@ -1,10 +1,12 @@
-function visualize_tallthin(datasetfname1, datasetfname2, printflag, outdir)
-% visualize(datasetfname1, datasetfname2, printflag, outdir)
+function visualize_tallthin(datasetfname1, datasetfname2, printflag, ...
+                            colorflag, outdir)
+% visualize(datasetfname1, datasetfname2, printflag, colorflag, outdir)
 %
 % Visualizes the information on Nystrom approximation stored in the file
 % datasetfname1 and randEig sketches and Nystrom extensions stored in datasetfname2. If printflag 
 % is true, saves the generated graphs to pdfs
-% with appropriate names. If outdir is present and printflag is true, the 
+% with appropriate names. If colorflag is true, uses color, otherwise uses
+% grayscale. If outdir is present and printflag is true, the 
 % pdfs are saved to this directory.
 %
 % datasetfname1 is assumed to contain the information on all Nystrom
@@ -265,34 +267,63 @@ end
 lw = 1.5;
 ms = 10;
 
-simple_style = 's-';
-simple_color = [.1 .1 .1];
-eig_simple_style = 's:';
-eig_simple_color = [.1 .1 .1];
-eignys_simple_style = 's--';
-eignys_simple_color = [.1 .1 .1];
-
-gaussian_style = 'o-';
-gaussian_color = [.2 .2 .2];
-eig_gaussian_style = 'o:';
-eig_gaussian_color = [.2 .2 .2];
-eignys_gaussian_style = 'o--';
-eignys_gaussian_color = [.2 .2 .2];
-
-srft_style = 'v-';
-srft_color = [.3 .3 .3];
-eig_srft_style = 'v:';
-eig_srft_color = [.3 .3 .3];
-eignys_srft_style = 'v--';
-eignys_srft_color = [.3 .3 .3];
-
-levscore_style = 'd-';
-levscore_color = [.4 .4 .4];
-eig_levscore_style = 'd:';
-eig_levscore_color = [.4 .4 .4];
-eignys_levscore_style = 'd--';
-eignys_levscore_color = [.4 .4 .4];
-
+if colorflag
+    simple_style = 'ks-';
+    simple_color = 'k';
+    eig_simple_style = 'ks:';
+    eig_simple_color = 'k';
+    eignys_simple_style = 'ks--';
+    eignys_simple_color = 'k';
+    
+    srft_style = 'bo-';
+    srft_color = 'b';
+    eig_srft_style = 'bv:';
+    eig_srft_color = 'b';
+    eignys_srft_style = 'bv--';
+    eignys_srft_color = 'b';
+    
+    gaussian_style = 'go-';
+    gaussian_color = 'g';
+    eig_gaussian_style = 'go:';
+    eig_gaussian_color = 'g'l
+    eignys_gaussian_style = 'go--';
+    eignys_gaussian_color = 'g';
+    
+    levscore_style = 'rd-';
+    levscore_color = 'r';
+    eig_levscore_style = 'rd:';
+    eig_levscore_color = 'r';
+    eignys_levscore_style = 'rd--';
+    eignys_levscore_color = 'r';
+else
+    simple_style = 's-';
+    simple_color = [.1 .1 .1];
+    eig_simple_style = 's:';
+    eig_simple_color = [.1 .1 .1];
+    eignys_simple_style = 's--';
+    eignys_simple_color = [.1 .1 .1];
+    
+    gaussian_style = 'o-';
+    gaussian_color = [.2 .2 .2];
+    eig_gaussian_style = 'o:';
+    eig_gaussian_color = [.2 .2 .2];
+    eignys_gaussian_style = 'o--';
+    eignys_gaussian_color = [.2 .2 .2];
+    
+    srft_style = 'v-';
+    srft_color = [.3 .3 .3];
+    eig_srft_style = 'v:';
+    eig_srft_color = [.3 .3 .3];
+    eignys_srft_style = 'v--';
+    eignys_srft_color = [.3 .3 .3];
+    
+    levscore_style = 'd-';
+    levscore_color = [.4 .4 .4];
+    eig_levscore_style = 'd:';
+    eig_levscore_color = [.4 .4 .4];
+    eignys_levscore_style = 'd--';
+    eignys_levscore_color = [.4 .4 .4];
+end
 legendloc = 'Northeast';
 
 exactbase_struct = struct(...
