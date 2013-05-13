@@ -36,8 +36,10 @@ To produce the figures in the paper,
 Short story, ensure that you are in the base directory, 'NystromBestiary',
 and run the following commands from the Matlab prompt:
 
-addpath 'aux' 'datasets' 'experiments' 'extensions' 'io' 'misc' 'outputs' 'plots' 'visualization'
+addpath 'aux' 'datasets' 'experiments' 'extensions' 'io' 'misc' 'outputs' 
+        'plots' 'visualization'
 create_bestiary_datasets
+maxNumCompThreads = 1; # if you want accurate timing info
 runall
 visualizeall
 
