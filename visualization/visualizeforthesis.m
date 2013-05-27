@@ -1,4 +1,4 @@
-function visualize(datasetfname, printflag, colorflag, outdir)
+function visualizeforthesis(datasetfname, printflag, colorflag, outdir)
 % visualize(datasetfname, printflag, colorflag, outdir)
 %
 % Visualizes the information on Nystrom approximation stored in the file
@@ -6,6 +6,8 @@ function visualize(datasetfname, printflag, colorflag, outdir)
 % with appropriate names. If colorflag is true, uses colors, otherwise
 % uses grayscale. If outdir is present and printflag is true, the 
 % pdfs are saved to this directory.
+%
+% Produces output in form relevant for thesis: only one legend per panel
 %
 % Graphs generated:
 %  - leverage scores and top eigenvalues
@@ -24,14 +26,14 @@ load(datasetfname);
 
 if printflag
     make_it_tight = true;
-    subplot = @(m,n,p) subtightplot (m, n, p, [0.082 0.07], [0.04 0.04], [0.1 0.06]);
+    subplot = @(m,n,p) subtightplot (m, n, p, [0.082 0.04], [0.11 0.09], [0.02 0.02]);
     if ~make_it_tight
         clear subplot;  
     end 
 
     fontsize = 15;
-    width = 6.2;
-    height = 12.4;
+    width = 18.6;
+    height = 5.2;
     basename = fullfile(outdir, savedata.in.datasetbasename);
     printfig = @(figname) printcf([basename figname '.pdf'], fontsize, width, height);
     printpanel = @(panelname, figname) printcf([basename figname '-' panelname '.pdf'], fontsize, width, width);
@@ -194,7 +196,7 @@ end
 legendloc = 'Northeast';
 
 exactbase_struct = struct(...
-    'seriesnames', {{'unif', 'srft', 'gaussian', 'levscore'}}, ...
+    'seriesnames', {{'nystrom', 'srft', 'gaussian', 'levscore'}}, ...
     'xlabel', '$\ell$ (column samples)', ...
     'clipaxis', true, ...
     'legendloc', legendloc, ...
@@ -243,12 +245,12 @@ exactmethods_nonfixedrank_trace_struct.plotname =  ...
     '\|_\star/\|\mathbf{A} - \mathbf{A}_k\|_\star$'];
 
 figure();
-subplot(3,1,1);
-plotpanel(exactmethods_nonfixedrank_spec_struct, false);
-subplot(3,1,2);
+subplot(1,3,1);
+plotpanel(exactmethods_nonfixedrank_spec_struct);
+subplot(1,3,2);
 plotpanel(exactmethods_nonfixedrank_frob_struct, false);
-subplot(3,1,3);
-plotpanel(exactmethods_nonfixedrank_trace_struct, true);
+subplot(1,3,3);
+plotpanel(exactmethods_nonfixedrank_trace_struct, false);
 
 % if storing plots, store the plot with all three norms at once, then
 % separate plots for the individual norms
@@ -302,12 +304,12 @@ exactmethods_fixedrank_trace_struct.plotname = ...
     '\|_\star/\|\mathbf{A} - \mathbf{A}_k\|_\star$'];
 
 figure();
-subplot(3,1,1);
-plotpanel(exactmethods_fixedrank_spec_struct, false);
-subplot(3,1,2);
+subplot(1,3,1);
+plotpanel(exactmethods_fixedrank_spec_struct);
+subplot(1,3,2);
 plotpanel(exactmethods_fixedrank_frob_struct, false);
-subplot(3,1,3);
-plotpanel(exactmethods_fixedrank_trace_struct, true);
+subplot(1,3,3);
+plotpanel(exactmethods_fixedrank_trace_struct, false);
 
 % if storing plots, store the plot with all three norms at once, then
 % separate plots for the individual norms
@@ -327,215 +329,215 @@ if printflag
 	printpanel('trerr', 'exact-methods-fixed-rank-errors');
 end
 
-%% Show the timings for the exact methods
-
-exacttiming_struct = exactbase_struct;
-exacttiming_struct.ylabel = 'time (s)';
-exacttiming_struct.plottype = 'semilogy';
-rmfield(exacttiming_struct, 'clipaxis');
-
-exacttiming_struct.series = { ...
-    nonfixed_simple_timing, ...
-    nonfixed_srft_timing, ...
-    nonfixed_gaussian_timing, ...
-    nonfixed_levscore_timing};
-
-figure();
-plotpanel(exacttiming_struct);
-
-if printflag
-    printtiming('exact-methods-timings');
-end
-
-%% Plot the errors of the fixed and nonfixed inexact leverage score methods
-% display the uniform and leverage sampling errors for calibration
-lw = 1.5;
-ms = 10;
-if colorflag
-    simple_style = 'ks-';
-    simple_color = 'k';
-    froblev_style = 'bo-';
-    froblev_color = 'b';
-    levscore_style = 'rd-';
-    levscore_color = 'r';
-    approxlev_style = 'g*-';
-    approxlev_color = 'g';
-    speclev_style = 'm^-';
-    speclev_color = 'm';
-else
-    simple_style = 's-';
-    simple_color = [.1 .1 .1];
-    froblev_style = 'o-';
-    froblev_color = [.2 .2 .2];
-    approxlev_style = 'v-';
-    approxlev_color = [.3 .3 .3];
-    levscore_style = 'd-';
-    levscore_color = [.4 .4 .4];
-    speclev_style = '^-';
-    speclev_color = [.5 .5 .5];
-end
-legendloc = 'Northeast';
-
-inexactbase_struct = struct(...
-    'seriesnames', {{'levscore', 'unif', 'power', 'frob levscore', ...
-                     'spec levscore'}}, ...
-    'xlabel', '$\ell$ (column samples)', ...
-    'clipaxis', true, ...
-    'legendloc', legendloc, ...
-    'x', savedata.in.lvals, ...
-    'styles', {{levscore_style, simple_style, approxlev_style, ...
-                froblev_style, speclev_style}}, ...
-    'lw', {{lw, lw, lw, lw, lw}}, ...
-    'ms', {{ms, ms, ms, ms, ms}}, ...
-    'colors', {{levscore_color, simple_color, approxlev_color, ...
-                froblev_color, speclev_color}}, ...
-    'mcolors', {{levscore_color, simple_color, approxlev_color, ...
-                 froblev_color, speclev_color}});
-
-%% Inexact methods, nonfixed rank plots
-
-inexactmethods_nonfixedrank_spec_struct = inexactbase_struct;
-inexactmethods_nonfixedrank_frob_struct = inexactbase_struct;
-inexactmethods_nonfixedrank_trace_struct = inexactbase_struct;
-
-inexactmethods_nonfixedrank_spec_struct.series = { ...
-    nonfixed_levscore_specerr/savedata.optspecerr, ...
-    nonfixed_simple_specerr/savedata.optspecerr, ...
-    nonfixed_approxlev_specerr/savedata.optspecerr, ...
-    nonfixed_froblev_specerr/savedata.optspecerr, ...
-    nonfixed_speclev_specerr/savedata.optspecerr};
-inexactmethods_nonfixedrank_spec_struct.plotname =  ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}^\dagger \mathbf{C}^T\|_2'...
-    '/\|\mathbf{A} - \mathbf{A}_k\|_2$'];
-
-inexactmethods_nonfixedrank_frob_struct.series = { ...
-    nonfixed_levscore_froerr/savedata.optfroerr, ...
-    nonfixed_simple_froerr/savedata.optfroerr, ...
-    nonfixed_approxlev_froerr/savedata.optfroerr, ...
-    nonfixed_froblev_froerr/savedata.optfroerr, ...
-    nonfixed_speclev_froerr/savedata.optfroerr};    
-inexactmethods_nonfixedrank_frob_struct.plotname = ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}^\dagger \mathbf{C}^T\|_F/'...
-    '\|\mathbf{A} - \mathbf{A}_k\|_F$'];
-
-inexactmethods_nonfixedrank_trace_struct.series = { ...
-    nonfixed_levscore_trerr/savedata.opttrerr, ...
-    nonfixed_simple_trerr/savedata.opttrerr, ...
-    nonfixed_approxlev_trerr/savedata.opttrerr, ...
-    nonfixed_froblev_trerr/savedata.opttrerr, ...
-    nonfixed_speclev_trerr/savedata.opttrerr};    
-inexactmethods_nonfixedrank_trace_struct.plotname =  ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}^\dagger \mathbf{C}^T'...
-    '\|_\star/\|\mathbf{A} - \mathbf{A}_k\|_\star$'];
-
-figure();
-subplot(3,1,1);
-plotpanel(inexactmethods_nonfixedrank_spec_struct, false);
-subplot(3,1,2);
-plotpanel(inexactmethods_nonfixedrank_frob_struct, false);
-subplot(3,1,3);
-plotpanel(inexactmethods_nonfixedrank_trace_struct, true);
-
-% if storing plots, store the plot with all three norms at once, then
-% separate plots for the individual norms
-if printflag
-    printfig('inexact-methods-nonfixed-rank-errors');
-    
-    figure();
-    plotpanel(inexactmethods_nonfixedrank_spec_struct);
-	printpanel('specerr', 'inexact-methods-nonfixed-rank-errors');
-
-	figure();
-	plotpanel(inexactmethods_nonfixedrank_frob_struct);
-	printpanel('froberr', 'inexact-methods-nonfixed-rank-errors');
-
-	figure();
-	plotpanel(inexactmethods_nonfixedrank_trace_struct);
-	printpanel('trerr', 'inexact-methods-nonfixed-rank-errors');
-end
-
-%% Inexact methods, fixed rank plots
-
-inexactmethods_fixedrank_spec_struct = inexactbase_struct;
-inexactmethods_fixedrank_frob_struct = inexactbase_struct;
-inexactmethods_fixedrank_trace_struct = inexactbase_struct;
-
-inexactmethods_fixedrank_spec_struct.series = { ...
-    fixed_levscore_specerr/savedata.optspecerr, ...
-    fixed_simple_specerr/savedata.optspecerr, ...
-    fixed_approxlev_specerr/savedata.optspecerr, ...
-    fixed_froblev_specerr/savedata.optspecerr, ...
-    fixed_speclev_specerr/savedata.optspecerr};
-inexactmethods_fixedrank_spec_struct.plotname =  ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T\|_2'...
-    '/\|\mathbf{A} - \mathbf{A}_k\|_2$'];
-
-inexactmethods_fixedrank_frob_struct.series = { ...
-    fixed_levscore_froerr/savedata.optfroerr, ...
-    fixed_simple_froerr/savedata.optfroerr, ...
-    fixed_approxlev_froerr/savedata.optfroerr, ...
-    fixed_froblev_froerr/savedata.optfroerr, ...
-    fixed_speclev_froerr/savedata.optfroerr};    
-inexactmethods_fixedrank_frob_struct.plotname = ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T\|_F'...
-    '/\|\mathbf{A} - \mathbf{A}_k\|_F$'];
-
-inexactmethods_fixedrank_trace_struct.series = { ...
-    fixed_levscore_trerr/savedata.opttrerr, ...
-    fixed_simple_trerr/savedata.opttrerr, ...
-    fixed_approxlev_trerr/savedata.opttrerr, ...
-    fixed_froblev_trerr/savedata.opttrerr, ...
-    fixed_speclev_trerr/savedata.opttrerr};    
-inexactmethods_fixedrank_trace_struct.plotname = ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T'...
-    '\|_\star/\|\mathbf{A} - \mathbf{A}_k\|_\star$'];
-
-figure();
-subplot(3,1,1);
-plotpanel(inexactmethods_fixedrank_spec_struct, false);
-subplot(3,1,2);
-plotpanel(inexactmethods_fixedrank_frob_struct, false);
-subplot(3,1,3);
-plotpanel(inexactmethods_fixedrank_trace_struct, true);
-
-% if storing plots, store the plot with all three norms at once, then
-% separate plots for the individual norms
-if printflag
-    printfig('inexact-methods-fixed-rank-errors');
-    
-    figure();
-    plotpanel(inexactmethods_fixedrank_spec_struct);
-	printpanel('specerr', 'inexact-methods-fixed-rank-errors');
-
-	figure();
-	plotpanel(inexactmethods_fixedrank_frob_struct);
-	printpanel('froberr', 'inexact-methods-fixed-rank-errors');
-
-	figure();
-	plotpanel(inexactmethods_fixedrank_trace_struct);
-	printpanel('trerr', 'inexact-methods-fixed-rank-errors');
-end
-
-%% Show the timings for the inexact methods
-
-inexacttiming_struct = inexactbase_struct;
-inexacttiming_struct.ylabel = 'time (s)';
-inexacttiming_struct.plottype = 'semilogy';
-rmfield(inexacttiming_struct, 'clipaxis');
-
-inexacttiming_struct.series = { ...
-    nonfixed_levscore_timing, ...
-    nonfixed_simple_timing, ...
-    nonfixed_approxlev_timing, ...
-    nonfixed_froblev_timing, ...
-    nonfixed_speclev_timing};
-
-figure();
-plotpanel(inexacttiming_struct);
-
-if printflag
-    printtiming('inexact-methods-timings');
-end
+% %% Show the timings for the exact methods
+% 
+% exacttiming_struct = exactbase_struct;
+% exacttiming_struct.ylabel = 'time (s)';
+% exacttiming_struct.plottype = 'semilogy';
+% rmfield(exacttiming_struct, 'clipaxis');
+% 
+% exacttiming_struct.series = { ...
+%     nonfixed_simple_timing, ...
+%     nonfixed_srft_timing, ...
+%     nonfixed_gaussian_timing, ...
+%     nonfixed_levscore_timing};
+% 
+% figure();
+% plotpanel(exacttiming_struct);
+% 
+% if printflag
+%     printtiming('exact-methods-timings');
+% end
+% 
+% %% Plot the errors of the fixed and nonfixed inexact leverage score methods
+% % display the uniform and leverage sampling errors for calibration
+% lw = 1.5;
+% ms = 10;
+% if colorflag
+%     simple_style = 'ks-';
+%     simple_color = 'k';
+%     froblev_style = 'bo-';
+%     froblev_color = 'b';
+%     levscore_style = 'rd-';
+%     levscore_color = 'r';
+%     approxlev_style = 'g*-';
+%     approxlev_color = 'g';
+%     speclev_style = 'm^-';
+%     speclev_color = 'm';
+% else
+%     simple_style = 's-';
+%     simple_color = [.1 .1 .1];
+%     froblev_style = 'o-';
+%     froblev_color = [.2 .2 .2];
+%     approxlev_style = 'v-';
+%     approxlev_color = [.3 .3 .3];
+%     levscore_style = 'd-';
+%     levscore_color = [.4 .4 .4];
+%     speclev_style = '^-';
+%     speclev_color = [.5 .5 .5];
+% end
+% legendloc = 'Northeast';
+% 
+% inexactbase_struct = struct(...
+%     'seriesnames', {{'levscore', 'unif', 'power', 'frob levscore', ...
+%                      'spec levscore'}}, ...
+%     'xlabel', '$\ell$ (column samples)', ...
+%     'clipaxis', true, ...
+%     'legendloc', legendloc, ...
+%     'x', savedata.in.lvals, ...
+%     'styles', {{levscore_style, simple_style, approxlev_style, ...
+%                 froblev_style, speclev_style}}, ...
+%     'lw', {{lw, lw, lw, lw, lw}}, ...
+%     'ms', {{ms, ms, ms, ms, ms}}, ...
+%     'colors', {{levscore_color, simple_color, approxlev_color, ...
+%                 froblev_color, speclev_color}}, ...
+%     'mcolors', {{levscore_color, simple_color, approxlev_color, ...
+%                  froblev_color, speclev_color}});
+% 
+% %% Inexact methods, nonfixed rank plots
+% 
+% inexactmethods_nonfixedrank_spec_struct = inexactbase_struct;
+% inexactmethods_nonfixedrank_frob_struct = inexactbase_struct;
+% inexactmethods_nonfixedrank_trace_struct = inexactbase_struct;
+% 
+% inexactmethods_nonfixedrank_spec_struct.series = { ...
+%     nonfixed_levscore_specerr/savedata.optspecerr, ...
+%     nonfixed_simple_specerr/savedata.optspecerr, ...
+%     nonfixed_approxlev_specerr/savedata.optspecerr, ...
+%     nonfixed_froblev_specerr/savedata.optspecerr, ...
+%     nonfixed_speclev_specerr/savedata.optspecerr};
+% inexactmethods_nonfixedrank_spec_struct.plotname =  ...
+%     ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}^\dagger \mathbf{C}^T\|_2'...
+%     '/\|\mathbf{A} - \mathbf{A}_k\|_2$'];
+% 
+% inexactmethods_nonfixedrank_frob_struct.series = { ...
+%     nonfixed_levscore_froerr/savedata.optfroerr, ...
+%     nonfixed_simple_froerr/savedata.optfroerr, ...
+%     nonfixed_approxlev_froerr/savedata.optfroerr, ...
+%     nonfixed_froblev_froerr/savedata.optfroerr, ...
+%     nonfixed_speclev_froerr/savedata.optfroerr};    
+% inexactmethods_nonfixedrank_frob_struct.plotname = ...
+%     ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}^\dagger \mathbf{C}^T\|_F/'...
+%     '\|\mathbf{A} - \mathbf{A}_k\|_F$'];
+% 
+% inexactmethods_nonfixedrank_trace_struct.series = { ...
+%     nonfixed_levscore_trerr/savedata.opttrerr, ...
+%     nonfixed_simple_trerr/savedata.opttrerr, ...
+%     nonfixed_approxlev_trerr/savedata.opttrerr, ...
+%     nonfixed_froblev_trerr/savedata.opttrerr, ...
+%     nonfixed_speclev_trerr/savedata.opttrerr};    
+% inexactmethods_nonfixedrank_trace_struct.plotname =  ...
+%     ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}^\dagger \mathbf{C}^T'...
+%     '\|_\star/\|\mathbf{A} - \mathbf{A}_k\|_\star$'];
+% 
+% figure();
+% subplot(3,1,1);
+% plotpanel(inexactmethods_nonfixedrank_spec_struct);
+% subplot(3,1,2);
+% plotpanel(inexactmethods_nonfixedrank_frob_struct, false);
+% subplot(3,1,3);
+% plotpanel(inexactmethods_nonfixedrank_trace_struct, false);
+% 
+% % if storing plots, store the plot with all three norms at once, then
+% % separate plots for the individual norms
+% if printflag
+%     printfig('inexact-methods-nonfixed-rank-errors');
+%     
+%     figure();
+%     plotpanel(inexactmethods_nonfixedrank_spec_struct);
+% 	printpanel('specerr', 'inexact-methods-nonfixed-rank-errors');
+% 
+% 	figure();
+% 	plotpanel(inexactmethods_nonfixedrank_frob_struct);
+% 	printpanel('froberr', 'inexact-methods-nonfixed-rank-errors');
+% 
+% 	figure();
+% 	plotpanel(inexactmethods_nonfixedrank_trace_struct);
+% 	printpanel('trerr', 'inexact-methods-nonfixed-rank-errors');
+% end
+% 
+% %% Inexact methods, fixed rank plots
+% 
+% inexactmethods_fixedrank_spec_struct = inexactbase_struct;
+% inexactmethods_fixedrank_frob_struct = inexactbase_struct;
+% inexactmethods_fixedrank_trace_struct = inexactbase_struct;
+% 
+% inexactmethods_fixedrank_spec_struct.series = { ...
+%     fixed_levscore_specerr/savedata.optspecerr, ...
+%     fixed_simple_specerr/savedata.optspecerr, ...
+%     fixed_approxlev_specerr/savedata.optspecerr, ...
+%     fixed_froblev_specerr/savedata.optspecerr, ...
+%     fixed_speclev_specerr/savedata.optspecerr};
+% inexactmethods_fixedrank_spec_struct.plotname =  ...
+%     ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T\|_2'...
+%     '/\|\mathbf{A} - \mathbf{A}_k\|_2$'];
+% 
+% inexactmethods_fixedrank_frob_struct.series = { ...
+%     fixed_levscore_froerr/savedata.optfroerr, ...
+%     fixed_simple_froerr/savedata.optfroerr, ...
+%     fixed_approxlev_froerr/savedata.optfroerr, ...
+%     fixed_froblev_froerr/savedata.optfroerr, ...
+%     fixed_speclev_froerr/savedata.optfroerr};    
+% inexactmethods_fixedrank_frob_struct.plotname = ...
+%     ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T\|_F'...
+%     '/\|\mathbf{A} - \mathbf{A}_k\|_F$'];
+% 
+% inexactmethods_fixedrank_trace_struct.series = { ...
+%     fixed_levscore_trerr/savedata.opttrerr, ...
+%     fixed_simple_trerr/savedata.opttrerr, ...
+%     fixed_approxlev_trerr/savedata.opttrerr, ...
+%     fixed_froblev_trerr/savedata.opttrerr, ...
+%     fixed_speclev_trerr/savedata.opttrerr};    
+% inexactmethods_fixedrank_trace_struct.plotname = ...
+%     ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T'...
+%     '\|_\star/\|\mathbf{A} - \mathbf{A}_k\|_\star$'];
+% 
+% figure();
+% subplot(3,1,1);
+% plotpanel(inexactmethods_fixedrank_spec_struct);
+% subplot(3,1,2);
+% plotpanel(inexactmethods_fixedrank_frob_struct, false);
+% subplot(3,1,3);
+% plotpanel(inexactmethods_fixedrank_trace_struct, false);
+% 
+% % if storing plots, store the plot with all three norms at once, then
+% % separate plots for the individual norms
+% if printflag
+%     printfig('inexact-methods-fixed-rank-errors');
+%     
+%     figure();
+%     plotpanel(inexactmethods_fixedrank_spec_struct);
+% 	printpanel('specerr', 'inexact-methods-fixed-rank-errors');
+% 
+% 	figure();
+% 	plotpanel(inexactmethods_fixedrank_frob_struct);
+% 	printpanel('froberr', 'inexact-methods-fixed-rank-errors');
+% 
+% 	figure();
+% 	plotpanel(inexactmethods_fixedrank_trace_struct);
+% 	printpanel('trerr', 'inexact-methods-fixed-rank-errors');
+% end
+% 
+% %% Show the timings for the inexact methods
+% 
+% inexacttiming_struct = inexactbase_struct;
+% inexacttiming_struct.ylabel = 'time (s)';
+% inexacttiming_struct.plottype = 'semilogy';
+% rmfield(inexacttiming_struct, 'clipaxis');
+% 
+% inexacttiming_struct.series = { ...
+%     nonfixed_levscore_timing, ...
+%     nonfixed_simple_timing, ...
+%     nonfixed_approxlev_timing, ...
+%     nonfixed_froblev_timing, ...
+%     nonfixed_speclev_timing};
+% 
+% figure();
+% plotpanel(inexacttiming_struct);
+% 
+% if printflag
+%     printtiming('inexact-methods-timings');
+% end
 
 %% close all figures
 if printflag

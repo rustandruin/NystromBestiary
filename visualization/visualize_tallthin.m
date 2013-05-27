@@ -232,7 +232,7 @@ legendloc = 'Northeast';
 inexactbase_struct = struct(...
     'seriesnames', {{'QR lev', 'unif', 'power', 'frob lev', ...
        'spec lev', 'srft', 'Alg 1'}}, ...
-    'xlabel', '$\ell$', ...
+    'xlabel', '$\ell$ (column samples)', ...
     'clipaxis', true, ...
     'legendloc', legendloc, ...
     'x', savedata.in.lvals, ...
@@ -289,11 +289,11 @@ inexactmethods_nonfixedrank_trace_struct.plotname = ...
 
 figure();
 subplot(3,1,1);
-plotpanel(inexactmethods_nonfixedrank_spec_struct);
+plotpanel(inexactmethods_nonfixedrank_spec_struct, false);
 subplot(3,1,2);
-plotpanel(inexactmethods_nonfixedrank_frob_struct);
+plotpanel(inexactmethods_nonfixedrank_frob_struct, false);
 subplot(3,1,3);
-plotpanel(inexactmethods_nonfixedrank_trace_struct);
+plotpanel(inexactmethods_nonfixedrank_trace_struct, true);
 
 % if storing plots, store the plot with all three norms at once, then
 % separate plots for the individual norms
@@ -357,11 +357,11 @@ inexactmethods_fixedrank_trace_struct.plotname =...
     '\|_\star/\|\mathbf{A} - \mathbf{A}_k\|_\star$'];
 figure();
 subplot(3,1,1);
-plotpanel(inexactmethods_fixedrank_spec_struct);
+plotpanel(inexactmethods_fixedrank_spec_struct, false);
 subplot(3,1,2);
-plotpanel(inexactmethods_fixedrank_frob_struct);
+plotpanel(inexactmethods_fixedrank_frob_struct, false);
 subplot(3,1,3);
-plotpanel(inexactmethods_fixedrank_trace_struct);
+plotpanel(inexactmethods_fixedrank_trace_struct, true);
 
 % if storing plots, store the plot with all three norms at once, then
 % separate plots for the individual norms

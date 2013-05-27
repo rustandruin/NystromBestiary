@@ -131,57 +131,57 @@ in.methods = allmethods;
 generate_dataset(in);
 clear in;
 
-%% Kin8nm
-
-load 'kin8nm_distance_matrix'
-in.sigma = 2.2;
-in.d = 9;
-in.cutoff = cutoffmultiplier*in.sigma;
-
-in.A = generate_compact_RBF_kernel(kin8nm_dist, in.sigma, in.d, in.cutoff);
-in.sparsity = nnz(in.A)/prod(size(in.A));
-clear kin8nm_dist;
-
-in.linearkernelflag = 0;
-in.k = 40;
-in.chunk = chunk;
-in.vareps = vareps;
-in.tol = tol;
-in.lvals = genlvals(in.k, 150);
-in.p = p;
-in.q = q;
-
-in.descr = 'Kin8nm RBF kernel with sigma = 2.2';
-in.datasetbasename = 'Kin8nmcompactsigma2pt2';
-in.datasetdir = datadirname;
-in.methods = allmethods;
-
-generate_dataset(in);
-clear in;
-
-%% Spam
-
-load 'spam-distance-matrix'
-in.sigma = 3;
-in.d = 57;
-in.cutoff = cutoffmultiplier*in.sigma;
-
-in.A = generate_compact_RBF_kernel(spam_dist, in.sigma, in.d, in.cutoff);
-in.sparsity = nnz(in.A)/prod(size(in.A));
-clear spam_dist;
-in.linearkernelflag = 0;
-in.k = 10;
-in.chunk = chunk;
-in.vareps = vareps;
-in.tol = tol;
-in.lvals = genlvals(in.k, 150);
-in.p = p;
-in.q = q;
-
-in.descr = 'Spam compact RBF kernel with sigma = 3';
-in.datasetbasename = 'Spamcompactsigma3';
-in.datasetdir = datadirname;
-in.methods = allmethods;
-
-generate_dataset(in);
-clear in;
+% %% Kin8nm
+% 
+% load 'kin8nm_distance_matrix'
+% in.sigma = 2.2;
+% in.d = 9;
+% in.cutoff = cutoffmultiplier*in.sigma;
+% 
+% in.A = generate_compact_RBF_kernel(kin8nm_dist, in.sigma, in.d, in.cutoff);
+% in.sparsity = nnz(in.A)/prod(size(in.A));
+% clear kin8nm_dist;
+% 
+% in.linearkernelflag = 0;
+% in.k = 40;
+% in.chunk = chunk;
+% in.vareps = vareps;
+% in.tol = tol;
+% in.lvals = genlvals(in.k, 150);
+% in.p = p;
+% in.q = q;
+% 
+% in.descr = 'Kin8nm RBF kernel with sigma = 2.2';
+% in.datasetbasename = 'Kin8nmcompactsigma2pt2';
+% in.datasetdir = datadirname;
+% in.methods = allmethods;
+% 
+% generate_dataset(in);
+% clear in;
+% 
+% %% Spam
+% 
+% load 'spam-distance-matrix'
+% in.sigma = 3;
+% in.d = 57;
+% in.cutoff = cutoffmultiplier*in.sigma;
+% 
+% in.A = generate_compact_RBF_kernel(spam_dist, in.sigma, in.d, in.cutoff);
+% in.sparsity = nnz(in.A)/prod(size(in.A));
+% clear spam_dist;
+% in.linearkernelflag = 0;
+% in.k = 10;
+% in.chunk = chunk;
+% in.vareps = vareps;
+% in.tol = tol;
+% in.lvals = genlvals(in.k, 150);
+% in.p = p;
+% in.q = q;
+% 
+% in.descr = 'Spam compact RBF kernel with sigma = 3';
+% in.datasetbasename = 'Spamcompactsigma3';
+% in.datasetdir = datadirname;
+% in.methods = allmethods;
+% 
+% generate_dataset(in);
+% clear in;

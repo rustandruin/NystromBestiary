@@ -24,7 +24,7 @@ function [snorm, fnorm, tnorm] = estnorms(in, C, Winv, Wkinv)
 
 % If this is set to true, use normest instead of more expensive methods to
 % estimate the spectral norm
-estimationQ = true;
+estimationQ = false;
 normesttol = 1e-7;
 
 % first calculate the errors of the non-fixed rank approximation

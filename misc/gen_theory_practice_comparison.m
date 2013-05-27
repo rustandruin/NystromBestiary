@@ -1,7 +1,7 @@
 %% l = 6*k*log k for all datasets
 genlvals = @(k) ceil(6*k*log(k));
-q = 10;
-datadirname = 'theory_practice_comparison_results_feb27';
+q = 15;
+datadirname = 'theory_practice_comparison_results_may22';
 comparisonmethods = {'simple', 'srft', 'gaussian', 'levscore'};
 
 %% Enron, k=60
@@ -61,8 +61,8 @@ in.k = 20;
 in.lvals = genlvals(in.k);
 in.q = q;
 
-in.descr = 'Abalone RBF kernel with sigma = 1';
-in.datasetbasename = 'Abalonesigma1';
+in.descr = 'Abalone RBF kernel with sigma = .15';
+in.datasetbasename = 'Abalonesigmapt15';
 in.datasetdir = datadirname;
 in.methods = comparisonmethods;
 
@@ -107,7 +107,8 @@ delta = 1/2;
 enronKmax = 1; % largest entry on diagonal of kernel
 enrondmax = 2; % largest sqrt(A_{ii} + A_{jj} - 2A_{ij}) over i,j
 
-bounds = predict_errors(enrondata, delta, enronKmax, enrondmax);
+%bounds = predict_errors(enrondata, delta, enronKmax, enrondmax);
+bounds = predict_errors(enrondata, delta);
 fprintf('\nDataset: Enron, l=%d\n', enrondata.in.lvals);
 fprintf('Drineas: B2 = %f,\tBF = %f\n', ...
     bounds.drineas2bound, bounds.drineasFbound);
@@ -133,7 +134,8 @@ fprintf('Lemma 4: eps = %.2f,\tB2 = %f,\tBF = %f,\tBT = %f\n', ...
 proteinKmax = 1;
 proteindmax = 1.538;
 
-bounds = predict_errors(proteindata, delta, proteinKmax, proteindmax);
+%bounds = predict_errors(proteindata, delta, proteinKmax, proteindmax);
+bounds = predict_errors(proteindata, delta);
 fprintf('\nDataset: Protein\n');
 fprintf('Drineas: B2 = %f,\tBF = %f\n', ...
     bounds.drineas2bound, bounds.drineasFbound);
@@ -159,7 +161,8 @@ fprintf('Lemma 4: eps = %.2f,\tB2 = %f,\tBF = %f,\tBT = %f\n', ...
 abaloneDKmax = 1;
 abaloneDdmax = 1.538;
 
-bounds = predict_errors(abaloneddata, delta, abaloneDKmax, abaloneDdmax);
+%bounds = predict_errors(abaloneddata, delta, abaloneDKmax, abaloneDdmax);
+bounds = predict_errors(abaloneddata, delta);
 fprintf('\nDataset: AbaloneD\n');
 fprintf('Drineas: B2 = %f,\tBF = %f\n', ...
     bounds.drineas2bound, bounds.drineasFbound);
@@ -185,7 +188,8 @@ fprintf('Lemma 4: eps = %.2f,\tB2 = %f,\tBF = %f,\tBT = %f\n', ...
 wineSKmax = 1;
 wineSdmax = sqrt(2);
 
-bounds = predict_errors(winesdata, delta, wineSKmax, wineSdmax);
+%bounds = predict_errors(winesdata, delta, wineSKmax, wineSdmax);
+bounds = predict_errors(winesdata, delta);
 fprintf('\nDataset: WineS\n');
 fprintf('Drineas: B2 = %f,\tBF = %f\n', ...
     bounds.drineas2bound, bounds.drineasFbound);

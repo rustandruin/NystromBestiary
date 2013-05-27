@@ -1,4 +1,4 @@
-function visualize_tallthin(datasetfname1, datasetfname2, printflag, ...
+function visualize_randeigforthesis(datasetfname1, datasetfname2, printflag, ...
                             colorflag, outdir)
 % visualize(datasetfname1, datasetfname2, printflag, colorflag, outdir)
 %
@@ -25,14 +25,14 @@ load(datasetfname1) % so basename can be defined
 
 if printflag
     make_it_tight = true;
-    subplot = @(m,n,p) subtightplot (m, n, p, [0.08 0.05], [0.05 0.04], [0.1 0.04]);
+    subplot = @(m,n,p) subtightplot (m, n, p, [0.082 0.04], [0.11 0.09], [0.02 0.02]);
     if ~make_it_tight
         clear subplot;  
     end 
 
     fontsize = 15;
-    width = 6.2;
-    height = 12.4;
+    width = 18.6;
+    height = 5.2;
     basename = fullfile(outdir, savedata.in.datasetbasename);
     printfig = @(figname) printcf([basename figname '.pdf'], fontsize, width, height);
     printpanel = @(panelname, figname) printcf([basename figname '-' panelname '.pdf'], fontsize, width, width);
@@ -41,7 +41,6 @@ if printflag
     timingheight = 6.2;
     printtiming = @(figname) printcf([basename figname '.pdf'], fontsize, timingwidth, timingheight);
 end
-
 
 %% calculate the mean errors and timings
 
@@ -327,9 +326,9 @@ end
 legendloc = 'Northeast';
 
 exactbase_struct = struct(...
-    'seriesnames', {{'unif', 'pinched unif', 'prolonged unif', 'gaussian', ...
-       'pinched gaussian','prolonged gaussian', 'srft', 'pinched srft', ...
-       'prolonged srft'}}, ...
+    'seriesnames', {{'nys', 'nys-pinched', 'nys-prolonged', 'gaussian', ...
+       'gaussian-pinched','gaussian-prolonged', 'srft', 'srft-pinched', ...
+       'srft-prolonged'}}, ...
     'xlabel', '$\ell$ (column samples)', ...
     'clipaxis', true, ...
     'legendloc', legendloc, ...
@@ -363,9 +362,7 @@ exactmethods_nonfixedrank_spec_struct.series = { ...
     eig_nonfixed_srft_specerr/savedata.optspecerr, ...
     eignys_nonfixed_srft_specerr/savedata.optspecerr};
 
-exactmethods_nonfixedrank_spec_struct.plotname = ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T'...
-    '\|_2/\|\mathbf{A} - \mathbf{A}_k\|_2$'];
+exactmethods_nonfixedrank_spec_struct.plotname = 'Relative spectral error';
 
 exactmethods_nonfixedrank_frob_struct.series = { ...
     nonfixed_simple_froerr/savedata.optfroerr, ...
@@ -378,9 +375,7 @@ exactmethods_nonfixedrank_frob_struct.series = { ...
     eig_nonfixed_srft_froerr/savedata.optfroerr, ...
     eignys_nonfixed_srft_froerr/savedata.optfroerr};
 
-exactmethods_nonfixedrank_frob_struct.plotname = ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T'...
-    '\|_{\mathrm{F}}/\|\mathbf{A} - \mathbf{A}_k\|_{\mathrm{F}}$'];
+exactmethods_nonfixedrank_frob_struct.plotname = 'Relative Frobenius error';
 
 exactmethods_nonfixedrank_trace_struct.series = { ...
     nonfixed_simple_trerr/savedata.opttrerr, ...
@@ -393,17 +388,15 @@ exactmethods_nonfixedrank_trace_struct.series = { ...
     eig_nonfixed_srft_trerr/savedata.opttrerr, ...
     eignys_nonfixed_srft_trerr/savedata.opttrerr};
 
-exactmethods_nonfixedrank_trace_struct.plotname = ...
-    ['$\|\mathbf{A} - \mathbf{C} \mathbf{W}_k^\dagger \mathbf{C}^T'...
-    '\|_\star/\|\mathbf{A} - \mathbf{A}_k\|_\star$'];
+exactmethods_nonfixedrank_trace_struct.plotname = 'Relative trace error';
 
 figure();
-subplot(3,1,1);
+subplot(1,3,1);
 plotpanel(exactmethods_nonfixedrank_spec_struct, false);
-subplot(3,1,2);
+subplot(1,3,2);
 plotpanel(exactmethods_nonfixedrank_frob_struct, false);
-subplot(3,1,3);
-plotpanel(exactmethods_nonfixedrank_trace_struct, true);
+subplot(1,3,3);
+plotpanel(exactmethods_nonfixedrank_trace_struct);
 
 % if storing plots, store the plot with all three norms at once, then
 % separate plots for the individual norms
@@ -425,7 +418,7 @@ end
 
 %% close all figures
 if printflag
-    close all
+   % close all
 end
 
 end

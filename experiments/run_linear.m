@@ -8,7 +8,7 @@ allmethods = {'simple', 'srft', 'gaussian', 'levscore', 'froblev', ...
 datadirname = 'outputs';
 
 p = .9; % for the mixedprobs method
-q = 6; % number of experiments to run
+q = 30; % number of experiments to run
 numpts = 12; % number of different column samples to take
 chunk = 10; % how often to reorthogonalize power method
 vareps = 1/3; % ignored, is the epsilon parameter in some methods
@@ -106,46 +106,46 @@ in.methods = allmethods;
 generate_dataset(in);
 clear in;
 
-%% Cranfield Term document matrix
-
-load 'cranfield-term-doc'
-in.A = normalize_kernel_data(A_cran);
-clear A_cran;
-in.linearkernelflag = 1;
-in.k = 3; 
-in.chunk = chunk;
-in.vareps = vareps;
-in.tol = tol;
-in.lvals = genlvals(in.k, 50);
-in.p = p;
-in.q = q;
-
-in.descr = '(whitened) Cranfield linear kernel';
-in.datasetbasename = 'Cranfieldrank3';
-in.datasetdir = datadirname;
-in.methods = allmethods;
-
-generate_dataset(in);
-clear in;
-
-%% Medline Term Document Matrix
-
-load 'medline-term-doc'
-in.A = A_med;
-clear A_med;
-in.linearkernelflag = 1;
-in.k = 15; 
-in.chunk = chunk;
-in.vareps = vareps;
-in.tol = tol;
-in.lvals = genlvals(in.k, 60);
-in.p = p;
-in.q = q;
-
-in.descr = '(nonwhitened) Medline linear kernel';
-in.datasetbasename = 'Medlinerank15';
-in.datasetdir = datadirname;
-in.methods = allmethods;
-
-generate_dataset(in);
-clear in;
+% %% Cranfield Term document matrix
+% 
+% load 'cranfield-term-doc'
+% in.A = normalize_kernel_data(A_cran);
+% clear A_cran;
+% in.linearkernelflag = 1;
+% in.k = 3; 
+% in.chunk = chunk;
+% in.vareps = vareps;
+% in.tol = tol;
+% in.lvals = genlvals(in.k, 50);
+% in.p = p;
+% in.q = q;
+% 
+% in.descr = '(whitened) Cranfield linear kernel';
+% in.datasetbasename = 'Cranfieldrank3';
+% in.datasetdir = datadirname;
+% in.methods = allmethods;
+% 
+% generate_dataset(in);
+% clear in;
+% 
+% %% Medline Term Document Matrix
+% 
+% load 'medline-term-doc'
+% in.A = A_med;
+% clear A_med;
+% in.linearkernelflag = 1;
+% in.k = 15; 
+% in.chunk = chunk;
+% in.vareps = vareps;
+% in.tol = tol;
+% in.lvals = genlvals(in.k, 60);
+% in.p = p;
+% in.q = q;
+% 
+% in.descr = '(nonwhitened) Medline linear kernel';
+% in.datasetbasename = 'Medlinerank15';
+% in.datasetdir = datadirname;
+% in.methods = allmethods;
+% 
+% generate_dataset(in);
+% clear in;

@@ -1,6 +1,14 @@
-function plotpanel(series)
+function plotpanel(varargin)
 %
-% Plots the information in the structure series to the current axis
+% plotpanel(series)
+%
+% Plots the information in the structure series to the current axis with a
+% legend
+%
+% plotpanel(series, legendflag)
+%
+% Does the same. Legend is plotted if legendflag is true, otherwise it is
+% not
 %
 % series.plotname -- the name of the plot (optional)
 % series.seriesnames -- a string cell array with the legend names for the series
@@ -18,6 +26,8 @@ function plotpanel(series)
 % series.colors -- a cell array containing the rgb colors for the series (as vectors)
 % series.mcolors -- a cell array containing the rgb colors for the series (as vectors)
 %
+
+series = varargin{1};
 
 x = series.x;
 data = series.series;
@@ -58,7 +68,13 @@ if isfield(series, 'ylabel')
     ylabel(series.ylabel, 'fontsize', 20);
 end
 
-legend(char(series.seriesnames), 'Location', series.legendloc);
+showlegendq = true;
+if nargin == 2
+ showlegendq = varargin{2};
+end
+if showlegendq
+    legend(char(series.seriesnames), 'Location', series.legendloc);
+end
 
 if isfield(series, 'plotname')
     th = title(series.plotname, 'fontsize', 20);

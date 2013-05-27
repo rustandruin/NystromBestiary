@@ -8,7 +8,7 @@ allmethods = {'simple', 'srft', 'gaussian', 'levscore', 'froblev', ...
 datadirname = 'outputs';
 
 p = .9; % for the mixedprobs method
-q = 6; %6 % number of experiments to run
+q = 30; %6 % number of experiments to run
 numpts = 12; %12 % number of different column samples to take
 chunk = 10; % how often to reorthogonalize power method
 vareps = 1/3; % ignored, is the epsilon parameter in some methods
