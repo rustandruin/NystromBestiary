@@ -1,18 +1,17 @@
-Nystrom Bestiary v1.0 
+Nystrom Bestiary v2.0 
 written by Alex Gittens
-This work is licensed under a Creative Commons Attribution 3.0 Unported License
-(http://creativecommons.org/licenses/by/3.0/legalcode)
+This work is licensed under the Creative Commons ShareAlike 4.0 International License
+(http://creativecommons.org/licenses/by-sa/4.0/)
 
 It is a collection of code for experimenting with various
-Nystrom extensions.
+SPSD Sketches, including Nystrom extensions based on column sampling, Nystrom extensions based on random mixtures of columns, and Nystrom-like eigensketches (see the Halko--Martinsson--Tropp SIAM Review paper for the precise definition).
 
 It was used to produce the figures in the paper
 "Revisiting the Nystrom Method for Improved Large-scale Machine Learning" by
 Alex Gittens and Michael Mahoney (preprint available at 
-http://arxiv.org/abs/1303.1849).
+http://arxiv.org/abs/1303.1849). In particular, the experimental setup to generate exactly those figures is included.
 
-Send comments, suggestions, and complaints to gittens AT caltech FULLSTOP edu
-Hompage (as of Mar 20, 2013): http://users.cms.caltech.edu/~gittens/nystrombestiary
+Send comments, suggestions, and complaints to agittens AT ebay FULLSTOP com
 
 Contents:
 --------
@@ -23,7 +22,7 @@ the experiments/ directory contains a set of m-files that actually runs the Nyst
  extensions on various datasets and stores statistics on the errors and timing
 the outputs/ directory is used to store the output of the experiments
 the plots/ directory stores the plots of the timings and errors
-the aux/ directory contains code needed in computing the extensions
+the auxiliary/ directory contains code needed in computing the extensions
 the visualization/ directory contains the code used to produce the plots of the
  various timings and errors
 the misc/ directory contains miscellany (so far, the code to generate the data
@@ -36,7 +35,7 @@ To produce the figures in the paper,
 Short story, ensure that you are in the base directory, 'NystromBestiary',
 and run the following commands from the Matlab prompt:
 
-addpath 'aux' 'datasets' 'experiments' 'extensions' 'io' 'misc' 'outputs' 'plots' 'visualization'
+addpath 'auxiliary' 'datasets' 'experiments' 'extensions' 'io' 'misc' 'outputs' 'plots' 'visualization'
 create_bestiary_datasets
 maxNumCompThreads = 1; # if you want accurate timing info
 runall
@@ -67,5 +66,3 @@ Enron, Protein, SNPs, HEP, GR, Gnutella
 two additional datasets: Cranfield and Medline are from the 
 Text to Matrix Generator Matlab Toolbox's website: 
 see http://scgroup20.ceid.upatras.gr:8000/tmg/
-
-
