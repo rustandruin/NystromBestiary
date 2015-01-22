@@ -3,7 +3,7 @@
 
 thesisq = false; % produce plots appropriate for a thesis
 printflag = true; % generate pdfs of the plots
-colorflag = false; % generate color plots
+colorflag = true; % generate color plots
 outdir = 'plots'; % location to store the pdfs 
 
 % basic SPSD sketches
