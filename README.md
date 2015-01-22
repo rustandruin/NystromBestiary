@@ -1,6 +1,6 @@
 Nystrom Bestiary v2.0  
 =====================
-written by [Alex Gittens](http://thousandfold.net/cz)
+written by [Alex Gittens](http://thousandfold.net/cz)  
 licensed under the [Creative Commons ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/)
 
 It is a collection of code for experimenting with various SPSD Sketches, including Nystrom extensions based on column sampling, Nystrom extensions based on random mixtures of columns, and Nystrom-like eigensketches (see the Halko--Martinsson--Tropp SIAM Review paper for the precise definition).
@@ -46,6 +46,7 @@ experiment, modify `runall.m` to set the `sendEmails` flag to true and set the
 email-related variables appropriately, then run
 
     setpref('Internet', 'SMTP_Password', 'youremailpassword')
+
 at the Matlab command line
 4.  run `runall` (or pick individual experiments) in the experiments directory;
  this step generates about 2.7Gb of data
