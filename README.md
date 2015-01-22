@@ -50,6 +50,7 @@ at the Matlab command line
  this step generates about 2.7Gb of data
 5.  wait several days for the experiments to stop running!
 6.  run `visualizeall`
+
 The pdfs will be located in the output directory
 
 See the individual m-files for more details. Make appropriate
