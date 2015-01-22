@@ -1,6 +1,6 @@
-Nystrom Bestiary v2.0 
-written by Alex Gittens
-This work is licensed under the Creative Commons ShareAlike 4.0 International License
+Nystrom Bestiary v2.0  
+written by Alex Gittens  
+This work is licensed under the Creative Commons ShareAlike 4.0 International License  
 (http://creativecommons.org/licenses/by-sa/4.0/)
 
 It is a collection of code for experimenting with various
@@ -13,25 +13,25 @@ http://arxiv.org/abs/1303.1849). In particular, the experimental setup to genera
 
 Send comments, suggestions, and complaints to agittens AT ebay FULLSTOP com
 
-Contents:
+Contents
 --------
-the extensions/ directory contains the implementations of various Nystrom extensions
-the io/ directory contains the code used to create, load, and process the datasets
-the datasets/ directory contains the datasets used in the experiments
-the experiments/ directory contains a set of m-files that actually runs the Nystrom
+- the extensions/ directory contains the implementations of various Nystrom extensions
+- the io/ directory contains the code used to create, load, and process the datasets
+- the datasets/ directory contains the datasets used in the experiments
+- the experiments/ directory contains a set of m-files that actually runs the Nystrom
  extensions on various datasets and stores statistics on the errors and timing
-the outputs/ directory is used to store the output of the experiments
-the plots/ directory stores the plots of the timings and errors
-the auxiliary/ directory contains code needed in computing the extensions
-the visualization/ directory contains the code used to produce the plots of the
+- the outputs/ directory is used to store the output of the experiments
+- the plots/ directory stores the plots of the timings and errors
+- the auxiliary/ directory contains code needed in computing the extensions
+- the visualization/ directory contains the code used to produce the plots of the
  various timings and errors
-the misc/ directory contains miscellany (so far, the code to generate the data
+- the misc/ directory contains miscellany (so far, the code to generate the data
 for Table 2 in the paper)
 
-Usage instructions:
+Usage instructions
 -------
-(*ALL m files should be run from the base folder, otherwise you'll run into path issues *)
-To produce the figures in the paper,
+_ALL m files should be run from the base folder, otherwise you'll run into path issues_    
+To produce the figures in the paper:  
 Short story, ensure that you are in the base directory, 'NystromBestiary',
 and run the following commands from the Matlab prompt:
 
@@ -42,14 +42,14 @@ runall
 visualizeall
 
 Long story:
-1) add all the subdirectories in this folder to your path
-2) run create_bestiary_datasets to generate
+1.  add all the subdirectories in this folder to your path
+2.  run create_bestiary_datasets to generate
  some required distance matrices; this step generates about 1.5Gb of data
-2) run runall (or pick individual experiments) in the experiments directory;
+3.  run runall (or pick individual experiments) in the experiments directory;
  this step generates about 2.7Gb of data
-3) wait several days for the experiments to stop running!
-4) run visualizeall
-5) the pdfs will be located in the output directory
+4.  wait several days for the experiments to stop running!
+5.  run visualizeall
+The pdfs will be located in the output directory
 
 See the individual m-files for more details. Make appropriate
 modifications to substitute your own datasets.
