@@ -3,7 +3,7 @@ Nystrom Bestiary v2.0
 written by [Alex Gittens](http://thousandfold.net/cz)  
 licensed under the [Creative Commons ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/)
 
-It is a collection of code for experimenting with various SPSD Sketches, including Nystrom extensions based on column sampling, Nystrom extensions based on random mixtures of columns, and Nystrom-like eigensketches (see the Halko--Martinsson--Tropp SIAM Review paper for the precise definition).
+It is a collection of code for experimenting with various SPSD Sketches, including Nystrom extensions based on column sampling, Nystrom extensions based on random mixtures of columns, and 'pinched' and 'prolonged' eigensketches (see the review paper ["Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions"](http://arxiv.org/abs/0909.4061) equations (5.11) and (5.12) for the precise definition of these two sketches).
 
 It was used to produce the figures in the paper ["Revisiting the Nystrom Method for Improved Large-scale Machine Learning"](http://arxiv.org/abs/1303.1849) (arXiv preprint link) by Alex Gittens and [Michael Mahoney](http://cs.stanford.edu/people/mmahoney/). In particular, the experimental setup to generate exactly those figures is included.
 
