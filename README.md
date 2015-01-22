@@ -44,9 +44,7 @@ Ensure that you are in the base directory, `NystromBestiary`, and run the follow
 3. If you want to have email notifications at the start and end of each
 experiment, modify `runall.m` to set the `sendEmails` flag to true and set the 
 email-related variables appropriately, then run
-
-    setpref('Internet', 'SMTP_Password', 'youremailpassword')
-
+`setpref('Internet', 'SMTP_Password', 'youremailpassword')`
 at the Matlab command line
 4.  run `runall` (or pick individual experiments) in the experiments directory;
  this step generates about 2.7Gb of data
