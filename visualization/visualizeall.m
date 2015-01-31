@@ -2,6 +2,7 @@
 % and truncates them if you have perl and pdfcrop installed
 
 thesisq = false; % produce plots appropriate for a thesis
+time_errorq = true; % produce time-error tradeoff plots
 printflag = true; % generate pdfs of the plots
 colorflag = true; % generate color plots
 outdir = 'plots'; % location to store the pdfs 
@@ -19,6 +20,8 @@ for diridx = 1:length(dirlist)
             % visualize because they don't have all the expected data
             if thesisq
                 visualizeforthesis(curfile, printflag, colorflag, outdir);
+            elseif time_errorq
+                visualize_time_error(curfile, printflag, colorflag, outdir);
             else
                 visualize(curfile, printflag, colorflag, outdir);
             end

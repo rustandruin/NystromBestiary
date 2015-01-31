@@ -1,5 +1,6 @@
 *~
 *.mat
 outputs/*
+plots/*
 !outputs/truncateplots.pl
 
