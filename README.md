@@ -31,7 +31,7 @@ To produce the figures in the paper:
 #####Short story
 Ensure that you are in the base directory, `NystromBestiary`, and run the following commands from the Matlab prompt:
 
-    addpath 'auxiliary' 'datasets' 'experiments' 'extensions' 'io' 'misc' 'outputs' 'plots' 'visualization'
+    addpath(genpath('.'))
     create_bestiary_datasets
     maxNumCompThreads = 1; # if you want accurate timing info
     runall
