@@ -7,7 +7,7 @@ Nystrom Bestiary is a collection of code for experimenting with various SPSD Ske
 
 It was used to produce the figures in the paper ["Revisiting the Nystrom Method for Improved Large-scale Machine Learning"](http://arxiv.org/abs/1303.1849) (arXiv preprint link) by Alex Gittens and [Michael Mahoney](http://cs.stanford.edu/people/mmahoney/). In particular, the experimental setup to generate exactly those figures is included.
 
-Send comments, suggestions, and complaints to agittens AT ebay FULLSTOP com
+Send comments, suggestions, and complaints to gittens AT icsi FULLSTOP berkeley FULLSTOP edu
 
 Contents
 --------
